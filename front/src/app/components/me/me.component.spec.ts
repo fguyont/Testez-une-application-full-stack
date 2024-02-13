@@ -12,11 +12,13 @@ import { User } from 'src/app/interfaces/user.interface';
 import { expect } from '@jest/globals';
 import { UserService } from 'src/app/services/user.service';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
-describe('MeComponent', () => {
+describe('MeComponent Unit Tests', () => {
   let component: MeComponent;
   let fixture: ComponentFixture<MeComponent>;
   let user: User;
+  let router: Router;
 
   const mockSessionService = {
     sessionInformation: {
@@ -45,7 +47,9 @@ describe('MeComponent', () => {
       ],
       providers: [
         { provide: SessionService, useValue: mockSessionService },
-        { provide: UserService, useValue: mockUserService }],
+        { provide: UserService, useValue: mockUserService },
+        { provide: Router, useValue: router }
+      ],
     })
       .compileComponents();
 
@@ -64,5 +68,11 @@ describe('MeComponent', () => {
     let userServiceSpy = jest.spyOn(mockUserService, 'getById').mockReturnValue(of(user));
     fixture.detectChanges();
     expect(component.user?.id).toBe(user.id);
+  });
+
+  it('should call delete from userService after calling delete', () => {
+    let userServiceSpy = jest.spyOn(mockUserService, 'delete').mockReturnValue(of(void 0));
+    component.delete();
+    expect(userServiceSpy).toHaveBeenCalledWith(mockSessionService.sessionInformation.id.toString());
   });
 });
