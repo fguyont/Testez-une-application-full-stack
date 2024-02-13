@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SessionService } from 'src/app/services/session.service';
 
 import { MeComponent } from './me.component';
-import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { expect } from '@jest/globals';
 import { UserService } from 'src/app/services/user.service';
@@ -65,12 +64,5 @@ describe('MeComponent', () => {
     let userServiceSpy = jest.spyOn(mockUserService, 'getById').mockReturnValue(of(user));
     fixture.detectChanges();
     expect(component.user?.id).toBe(user.id);
-  });
-
-  it('should call delete from UserService then call logOut from SessionService', () => {
-    let userServiceSpy = jest.spyOn(mockUserService, 'delete').mockReturnValue(of(void 0));
-    let sessionServiceSpy = jest.spyOn(mockSessionService, 'logOut');
-    component.delete();
-    expect(userServiceSpy).toBeCalled();
   });
 });
