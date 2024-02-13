@@ -15,7 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterRequest } from '../../interfaces/registerRequest.interface';
 import { of, throwError } from 'rxjs';
 
-describe('RegisterComponent', () => {
+describe('RegisterComponent integration tests', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authService: AuthService;
