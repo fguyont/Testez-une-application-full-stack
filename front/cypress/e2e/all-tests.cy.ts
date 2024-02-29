@@ -132,18 +132,18 @@ describe('Me', () => {
   });
 });
 
-describe('list', ()=>{
+describe('sessions', ()=>{
   it('List of sessions', ()=>{
       cy.visit('/login');
-      cy.intercept('POST','/api/auth/login', {
-          body:{
-              id: 1,
-              username: 'yoga@studio.com',
-              firstName: 'Admin',
-              lastName: 'admin',
-              admin: true
-          }
-      });
+      cy.intercept('POST', '/api/auth/login', {
+        body: {
+          id: 1,
+          username: 'userName',
+          firstName: 'firstName',
+          lastName: 'lastName',
+          admin: true
+        },
+      })
 
       cy.intercept('GET', '/api/session', {
         body:[{
