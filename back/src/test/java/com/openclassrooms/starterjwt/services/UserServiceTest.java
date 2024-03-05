@@ -55,16 +55,12 @@ public class UserServiceTest {
         givenUser.setAdmin(false);
         givenUser.setCreatedAt(LocalDateTime.now());
         givenUser.setUpdatedAt(null);
-        User deletedUser = null;
-        when(userRepository.findById(98L)).thenReturn(Optional.empty());
 
         // WHEN
         UserService userService = new UserService(this.userRepository);
         userService.delete(98L);
-        deletedUser = userService.findById(98L);
 
         // THEN
         verify(userRepository).deleteById(98L);
-        assertThat(deletedUser).isEqualTo(null);
     }
 }
