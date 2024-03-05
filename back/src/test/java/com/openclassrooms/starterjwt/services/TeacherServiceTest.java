@@ -31,14 +31,14 @@ public class TeacherServiceTest {
         givenTeacher.setFirstName("Find");
         givenTeacher.setCreatedAt(LocalDateTime.now());
         givenTeacher.setUpdatedAt(null);
-        when(teacherRepository.findById(90L)).thenReturn(Optional.of(givenTeacher));
+        when(teacherRepository.findById(givenTeacher.getId())).thenReturn(Optional.of(givenTeacher));
 
         // WHEN
         TeacherService teacherService = new TeacherService(this.teacherRepository);
-        Teacher teacherByService = teacherService.findById(90L);
+        Teacher teacherByService = teacherService.findById(givenTeacher.getId());
 
         // THEN
-        verify(teacherRepository).findById(90L);
+        verify(teacherRepository).findById(givenTeacher.getId());
         assertThat(teacherByService).isEqualTo(givenTeacher);
     }
 
@@ -60,6 +60,7 @@ public class TeacherServiceTest {
         // THEN
         verify(teacherRepository).findAll();
         assertThat(teachersByService).isEqualTo(givenTeachers);
+        assertThat(teachersByService.size()).isEqualTo(3);
         assertThat(teachersByService.size()).isEqualTo(givenTeachers.size());
     }
 

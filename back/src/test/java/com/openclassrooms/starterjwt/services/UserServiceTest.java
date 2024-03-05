@@ -32,14 +32,14 @@ public class UserServiceTest {
         givenUser.setAdmin(true);
         givenUser.setCreatedAt(LocalDateTime.now());
         givenUser.setUpdatedAt(null);
-        when(userRepository.findById(99L)).thenReturn(Optional.of(givenUser));
+        when(userRepository.findById(givenUser.getId())).thenReturn(Optional.of(givenUser));
 
         // WHEN
         UserService userService = new UserService(this.userRepository);
-        User userByService = userService.findById(99L);
+        User userByService = userService.findById(givenUser.getId());
 
         // THEN
-        verify(userRepository).findById(99L);
+        verify(userRepository).findById(givenUser.getId());
         assertThat(userByService).isEqualTo(givenUser);
     }
 
@@ -58,9 +58,9 @@ public class UserServiceTest {
 
         // WHEN
         UserService userService = new UserService(this.userRepository);
-        userService.delete(98L);
+        userService.delete(givenUser.getId());
 
         // THEN
-        verify(userRepository).deleteById(98L);
+        verify(userRepository).deleteById(givenUser.getId());
     }
 }
