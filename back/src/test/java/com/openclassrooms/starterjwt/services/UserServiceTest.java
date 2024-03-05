@@ -44,7 +44,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenAnUser_whenDelete_thenShouldUseUserRepositoryAndGivenUser(){
+    public void givenAnUser_whenDelete_thenShouldUseUserRepositoryAndDeleteTheUser(){
         // GIVEN
         User givenUser = new User();
         givenUser.setId(98L);
