@@ -21,7 +21,7 @@ public class UserServiceTest {
     UserRepository userRepository;
 
     @Test
-    public void givenAnUser_whenFindById_thenShouldUseUserRepositoryAndGetTheSameUser() {
+    public void givenAnUser_whenFindById_thenShouldUseUserRepositoryAndFindTheSameUser() {
         // GIVEN
         User givenUser = new User();
         givenUser.setId(99L);
