@@ -16,7 +16,7 @@ import com.openclassrooms.starterjwt.payload.request.SignupRequest;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthControllerIT {
+public class AuthControllerTest{
 
     @Autowired
     private MockMvc mockMvc;

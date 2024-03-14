@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TeacherControllerIT {
+public class TeacherControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
