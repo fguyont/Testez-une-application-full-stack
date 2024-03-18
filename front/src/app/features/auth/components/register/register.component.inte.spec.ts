@@ -54,7 +54,7 @@ describe('RegisterComponent integration tests', () => {
   });
 
   it('should register', () => {
-    let registerRequest: RegisterRequest = {email: "testaccount@mail.com", firstName:"account", lastName:"test", password: "passtest"};
+    let registerRequest: RegisterRequest = { email: "testaccount@mail.com", firstName: "account", lastName: "test", password: "passtest" };
     let authServiceSpy = jest.spyOn(authService, 'register').mockReturnValue(of(void 0));
     let routerSpy = jest.spyOn(router, 'navigate');
     component.form.controls.firstName.setValue(registerRequest.firstName);
@@ -71,9 +71,9 @@ describe('RegisterComponent integration tests', () => {
     expect(component.onError).toBeFalsy();
   });
 
-  it('should not register', () => {
-    let registerRequest: RegisterRequest = {email: "testaccount@mail.com", firstName:"account", lastName:"test", password: "pa"};
-    let errorResponse =  'Bad request';
+  it('should not register with a small password', () => {
+    let registerRequest: RegisterRequest = { email: "testaccount@mail.com", firstName: "account", lastName: "test", password: "pa" };
+    let errorResponse = { status: 400 };
     let authServiceSpy = jest.spyOn(authService, 'register').mockReturnValue(throwError(() => errorResponse));
     component.form.controls.firstName.setValue(registerRequest.firstName);
     component.form.controls.lastName.setValue(registerRequest.lastName);
@@ -83,6 +83,26 @@ describe('RegisterComponent integration tests', () => {
 
     fixture.detectChanges();
     submitButton.click();
+
+    fixture.detectChanges();
+    let errorMessage = fixture.nativeElement.querySelector('form > span').textContent;
+
+    expect(authServiceSpy).toHaveBeenCalledWith(component.form.value);
+    expect(component.onError).toBeTruthy();
+    expect(errorMessage).toContain('error');
+  });
+
+  it('should not register with empty inputs', () => {
+    let registerRequest: RegisterRequest = { email: "", firstName: "", lastName: "", password: "" };
+    let errorResponse = { status: 400 };
+    let authServiceSpy = jest.spyOn(authService, 'register').mockReturnValue(throwError(() => errorResponse));
+    component.form.controls.firstName.setValue(registerRequest.firstName);
+    component.form.controls.lastName.setValue(registerRequest.lastName);
+    component.form.controls.email.setValue(registerRequest.email);
+    component.form.controls.password.setValue(registerRequest.password);
+
+    fixture.detectChanges();
+    component.submit();
 
     fixture.detectChanges();
     let errorMessage = fixture.nativeElement.querySelector('form > span').textContent;
