@@ -25,7 +25,7 @@ public class AuthControllerTest{
     private ObjectMapper objectMapper;
 
     @Test
-    public void givenALoginRequestWithAGoodPassword_whenLogin_thenIsLogged() throws Exception {
+    public void whenLogin_thenIsLogged() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("yoga@studio.com");
         loginRequest.setPassword("test!1234");
@@ -38,7 +38,7 @@ public class AuthControllerTest{
     }
 
     @Test
-    public void givenANewUser_whenRegister_thenTheRegistrationIsOK() throws Exception {
+    public void whenRegister_thenTheRegistrationIsOK() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.setEmail("test1000@studio.com");
         signupRequest.setFirstName("Succeeded");
@@ -54,7 +54,7 @@ public class AuthControllerTest{
     }
 
     @Test
-    public void givenANewUserWithAnAlreadyExistingEmail_whenRegister_thenReturnsBadRequest() throws Exception {
+    public void whenRegisterWithAnExistingEmail_thenReturnsBadRequest() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.setEmail("yoga@studio.com");
         signupRequest.setFirstName("Failed");

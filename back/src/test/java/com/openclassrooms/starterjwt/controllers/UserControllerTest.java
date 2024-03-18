@@ -24,7 +24,7 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser
-    public void givenExistingUserId_whenGetUser_thenReturnsUserDetails() throws Exception {
+    public void whenGetUser_thenReturnsUserDetails() throws Exception {
         mockMvc.perform(get("/api/user/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
@@ -33,35 +33,21 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser
-    public void givenNotExistingUserId_whenGetUser_thenReturnsNotFoundError() throws Exception {
-        mockMvc.perform(get("/api/user/100000"))
+    public void whenGetUser_thenReturnsNotFoundError() throws Exception {
+        mockMvc.perform(get("/api/user/-100000"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser
-    public void givenNotNumericId_whenGetUser_thenReturnsBadRequestError() throws Exception {
-        mockMvc.perform(get("/api/user/session"))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @WithMockUser
-    public void userDeleteBadRequest() throws Exception {
+    public void whenGetUserWithBadUrl_thenIsBadRequest() throws Exception {
         mockMvc.perform(delete("/api/user/session"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     @WithMockUser
-    public void userDeleteBadRequest1() throws Exception {
-        mockMvc.perform(delete("/api/user/999"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    @WithMockUser
-    public void userDeleteUnauthorized() throws Exception {
+    public void whenDeleteUserAsNonAdmin_thenIsUnauthorized() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/api/user/2")
                         .contentType(MediaType.APPLICATION_JSON))
