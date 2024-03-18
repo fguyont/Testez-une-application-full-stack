@@ -77,7 +77,7 @@ describe('LoginComponent integration tests', () => {
     expect(component.onError).toBeFalsy();
   });
 
-  it('should not login', () => {
+  it('should not login with bad password', () => {
     let loginRequest: LoginRequest = { email: 'yoga@studio.com', password: 'badtest!1234' };
     let errorResponse: {
       path: "/api/auth/login",
@@ -92,6 +92,28 @@ describe('LoginComponent integration tests', () => {
 
     fixture.detectChanges();
     submitButton.click();
+
+    fixture.detectChanges();
+    let errorMessage = fixture.nativeElement.querySelector('form > p').textContent;
+
+    expect(authServiceSpy).toHaveBeenCalledWith(component.form.value);
+    expect(component.onError).toBeTruthy();
+    expect(sessionService.isLogged).toBeFalsy();
+    expect(sessionService.sessionInformation).toBe(undefined);
+    expect(errorMessage).toContain('error');
+  });
+
+  it('should not login with empty inputs', () => {
+    let loginRequest: LoginRequest = { email: '', password: '' };
+    let errorResponse: {
+      status: 400
+    }
+    let authServiceSpy = jest.spyOn(authService, 'login').mockReturnValue(throwError(() => errorResponse));
+    component.form.controls.email.setValue(loginRequest.email);
+    component.form.controls.password.setValue(loginRequest.password);
+
+    fixture.detectChanges();
+    component.submit();
 
     fixture.detectChanges();
     let errorMessage = fixture.nativeElement.querySelector('form > p').textContent;
