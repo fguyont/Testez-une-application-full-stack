@@ -27,8 +27,6 @@ https://github.com/fguyont/Testez-une-application-full-stack/blob/master/back/sr
 
 - Go inside folder named back
 > cd back
-- Install dependencies
-> mvn clean install
 - Run the project
 > mvn spring-boot:run
 
