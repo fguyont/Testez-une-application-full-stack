@@ -40,7 +40,7 @@ https://github.com/fguyont/Testez-une-application-full-stack/blob/master/back/sr
 > npm start
 - The application opens here http://localhost:4200
 - Try to log in with this account:
-> login: yoga@studio.com
+> email: yoga@studio.com
 > password: test!1234
 
 ## Front-end testing
@@ -53,19 +53,23 @@ https://github.com/fguyont/Testez-une-application-full-stack/blob/master/back/sr
 
 ## End-to-end testing
 
+- Run end-to-end tests
+> npm run e2e
+- Generate coverage file (only if e2e tests had been run before)
 > npm run e2e:coverage
-- With Cypress browser, run the file named all-tests.cy in order to get the coverage for all this project end-to-end tests.
+- With Cypress browser, run the file named all-tests.cy.ts in order to get the coverage for all this project end-to-end tests.
 - Coverage report: 
 > /Testez-une-application-full-stack/front/coverage/lcov-report/index.html
 
 ## Back-end testing
 
+- Go inside back folder
 - Run back-end tests
 > npm clean test
 - Coverage report: 
 > /Testez-une-application-full-stack/back/target/site/jacoco/index.html
 
-- After each back-end test run, you will need to drop the schema and create a new one because of these magic numbers in back-end integration tests.
+- After each back-end test run, you will need to drop the schema and create a new one because of the used ids in API calls in back-end integration tests.
 
 ## Author
 
